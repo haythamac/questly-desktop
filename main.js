@@ -2,6 +2,8 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
+app.setPath('userData', path.join(app.getPath('appData'), 'todo-electron'));
+
 const dataFile = () => path.join(app.getPath('userData'), 'todos.json');
 
 ipcMain.handle('todos:load', () => {
@@ -25,6 +27,7 @@ function createWindow() {
     minHeight: 480,
     backgroundColor: '#ffffff',
     autoHideMenuBar: true,
+    icon: path.join(__dirname, 'build', 'icon.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,

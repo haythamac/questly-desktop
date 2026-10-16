@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>My To-Do List</title>
+<title>Questly</title>
 <style>
   :root {
     --ink: #0b1020;
@@ -94,7 +94,8 @@
   .day h4 { margin: 12px 0 6px; font-size: 12px; color: var(--muted); font-weight: 700; }
   .day ul { list-style: none; margin: 0; padding: 0; }
   .day li { font-size: 14px; padding: 3px 0; display: flex; gap: 8px; }
-  .day li.no { color: #94a3b8; }
+  .day li.yes { color: #15803d; }
+  .day li.no { color: #dc2626; }
   .day li .mark { width: 16px; text-align: center; flex: none; }
 
   .tabs { position: relative; display: flex; gap: 28px; margin-top: 30px; border-bottom: 1px solid var(--line); }
@@ -126,7 +127,7 @@
     </div>
     <button class="ghost" id="viewBtn" type="button">History</button>
   </div>
-  <h1>My To-Do List</h1>
+  <h1>Questly</h1>
   <p class="sub" id="sub">Add your first task below.</p>
 
   <div id="todoView">
@@ -339,7 +340,7 @@
         card.appendChild(el('h4', '', 'Daily'));
         const ul = el('ul');
         entries.forEach((e) => {
-          const li = el('li', e.done ? '' : 'no');
+          const li = el('li', e.done ? 'yes' : 'no');
           li.append(el('span', 'mark', e.done ? '✓' : '✗'), el('span', '', e.text));
           ul.appendChild(li);
         });
@@ -349,7 +350,7 @@
         card.appendChild(el('h4', '', 'Projects finished'));
         const ul = el('ul');
         projectsByDate[d].forEach((p) => {
-          const li = el('li');
+          const li = el('li', 'yes');
           li.append(el('span', 'mark', '✓'), el('span', '', p));
           ul.appendChild(li);
         });
@@ -397,7 +398,7 @@
     showHistory = h;
     document.getElementById('todoView').classList.toggle('hidden', h);
     document.getElementById('historyView').classList.toggle('hidden', !h);
-    document.querySelector('h1').textContent = h ? 'History' : 'My To-Do List';
+    document.querySelector('h1').textContent = h ? 'History' : 'Questly';
     document.getElementById('sub').classList.toggle('hidden', h);
     viewBtn.textContent = h ? 'Back to tasks' : 'History';
   }
